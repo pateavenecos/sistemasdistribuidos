@@ -1,0 +1,12 @@
+FROM alpine
+COPY . /opt/ejercicioCoordinacion
+WORKDIR /opt/ejercicioCoordinacion
+RUN apk update
+RUN apk upgrade
+RUN apk add python3
+RUN apk add py3-flask
+RUN apk add py3-requests
+EXPOSE 5000
+
+#CMD [ "python3", "ws.py" ]
+

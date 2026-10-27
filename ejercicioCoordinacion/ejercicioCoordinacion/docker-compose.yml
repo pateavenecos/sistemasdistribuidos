@@ -1,0 +1,44 @@
+services:
+  operatews:
+    build:
+      context: .  # Directorio donde se encuentra el Dockerfile
+      dockerfile: dockerfile  # Nombre del archivo Dockerfile (opcional si se llama Dockerfile)
+    image: opwsimg  # Nombre y etiqueta de la imagen
+    container_name: Aws
+    ports:
+      - "5000:5000"
+    networks:
+      rampart:
+        ipv4_address: 172.18.0.2
+    command: python3 /opt/ejercicioCoordinacion/A/ws.py  # Comando para ejecutar el script de Python  
+
+  sumws:
+    image: opwsimg  # Nombre y etiqueta de la imagen
+    container_name: Bws
+    networks:
+      rampart:
+        ipv4_address: 172.18.0.3
+    command: python3 /opt/ejercicioCoordinacion/B/ws.py  # Comando para ejecutar el script de Python
+
+  substws:
+    image: opwsimg  # Nombre y etiqueta de la imagen
+    container_name: Cws
+    networks:
+      rampart:
+        ipv4_address: 172.18.0.4
+    command: python3 /opt/ejercicioCoordinacion/C/ws.py  # Comando para ejecutar el script de Python
+  multws:
+    image: opwsimg  # Nombre y etiqueta de la imagen
+    container_name: Dws
+    networks:
+      rampart:
+        ipv4_address: 172.18.0.5
+    command: python3 /opt/ejercicioCoordinacion/D/ws.py  # Comando para ejecutar el script de Python
+    
+networks:
+  rampart:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.18.0.0/16
+         gateway: 172.18.0.1
